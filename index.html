@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>99 Duas Inspired by the Beautiful Names of Allah</title>
+<style>
+    :root {
+      --page-bg:#baccba;
+      --header-bg:#234e5d;
+      --header-text:#ffffff;
+      --nav-text:#ffffff;
+      --nav-active-bg:#ffffff;
+      --nav-active-text:#234e5d;
+      --card-bg:#ffffff;
+      --card-text:#1f2937;
+      --muted:#6b7280;
+      --shadow:0 1px 2px rgba(0,0,0,.06);
+      --radius:22px;
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--page-bg);
+      color:var(--card-text);
+    }
+    header {
+      position:sticky;
+      top:0;
+      z-index:1000;
+      background:var(--header-bg);
+      color:var(--header-text);
+      padding:8px 14px 6px;
+    }
+    .topbar-inner {
+      max-width:980px;
+      margin:0 auto;
+    }
+    h1 {
+      color:var(--header-text);
+      font-size:1.15rem;
+      line-height:1.2;
+      margin:0 0 4px 0;
+      font-weight:800;
+    }
+    .subtitle {
+      color:rgba(255,255,255,.92);
+      font-size:.78rem;
+      line-height:1.25;
+      margin:0 0 8px 0;
+    }
+    .dua-nav-wrap {
+      margin:0 -14px;
+      padding:0 14px 8px;
+      background:var(--header-bg);
+    }
+    .dua-nav {
+      display:flex;
+      gap:6px;
+      overflow-x:auto;
+      overflow-y:hidden;
+      white-space:nowrap;
+      scrollbar-width:none;
+      -webkit-overflow-scrolling:touch;
+    }
+    .dua-nav::-webkit-scrollbar { display:none; }
+    .dua-link {
+      display:inline-flex;
+      align-items:center;
+      white-space:nowrap;
+      text-decoration:none;
+      background:transparent;
+      color:var(--nav-text);
+      border:1px solid rgba(255,255,255,1);
+      border-radius:999px;
+      padding:7px 9px;
+      font-size:.76rem;
+      line-height:1;
+      font-weight:600;
+    }
+    .dua-link.active {
+      background:var(--nav-active-bg);
+      color:var(--nav-active-text);
+      border-color:var(--nav-active-bg);
+    }
+    main {
+      max-width:980px;
+      margin:0 auto;
+      padding:10px 14px 60px;
+    }
+    .dua {
+      position:relative;
+      background:var(--card-bg);
+      color:var(--card-text);
+      border:none;
+      border-radius:var(--radius);
+      padding:18px 18px 20px;
+      margin:0 0 16px 0;
+      box-shadow:var(--shadow);
+      scroll-margin-top: 150px;
+    }
+    .dua-number {
+      position:absolute;
+      top:14px;
+      right:16px;
+      font-size:.82rem;
+      font-weight:700;
+      color:#93a19a;
+    }
+    .dua h2 {
+      margin:0 0 2px 0;
+      line-height:1.2;
+      font-size:1rem;
+      font-weight:800;
+      color:var(--card-text);
+      padding-right:42px;
+    }
+    .meaning {
+      color:var(--muted);
+      font-size:.82rem;
+      line-height:1.25;
+      margin:0 0 14px 0;
+      font-weight:700;
+    }
+    .dua-text p {
+      font-size:1rem;
+      line-height:1.7;
+      margin:0 0 12px 0;
+      color:var(--card-text);
+    }
+    .dua-text p:last-child { margin-bottom:0; }
+    .footer-note {
+      text-align:center;
+      color:#4b5563;
+      font-size:.88rem;
+      padding-top:8px;
+    }
+    @media (min-width: 700px) {
+      .dua {
+        padding:22px 22px 24px;
+      }
+      h1 { font-size:1.25rem; }
+    }
+  
+#duaNav{
+  background:#234e5d !important;
+position:fixed;
+bottom:0;
+left:0;
+right:0;
+background:#234e5d;
+padding:8px;
+overflow-x:auto;
+white-space:nowrap;
+z-index:999;
+}
+body{
+padding-bottom:80px;
+}
+</style>
+<style id="anchor-fix">
+.dua:target::before {
+  content:"";
+  display:block;
+  height:150px;
+  margin-top:-150px;
+  visibility:hidden;
+  pointer-events:none;
+}
+</style>
+<style id="nav-tune">
+  .dua-link {
+    min-width: 30vw;
+    max-width: 30vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    justify-content: center;
+  }
+</style>
+<style id="arabic-title-patch">
+.dua-title-line {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:8px 10px;
+}
+.dua-title-line .english {
+  display:inline-block;
+}
+.dua-title-line .arabic {
+  display:inline-block;
+  direction:rtl;
+  unicode-bidi:isolate;
+  font-size:1rem;
+  font-weight:700;
+  color:#374151;
+}
+@media (max-width: 480px) {
+  .dua-title-line .arabic {
+    font-size:.98rem;
+  }
+}
+</style>
+<style id="bottom-nav-polish">
+#duaNav{
+  background:#234e5d !important;
+  position:fixed !important;
+  bottom:0 !important;
+  left:0 !important;
+  right:0 !important;
+  background:#234e5d !important;
+  padding:8px 10px calc(8px + env(safe-area-inset-bottom)) !important;
+  overflow-x:auto !important;
+  overflow-y:hidden !important;
+  white-space:nowrap !important;
+  z-index:1100 !important;
+  display:flex !important;
+  gap:6px !important;
+  scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  box-shadow:0 -1px 2px rgba(0,0,0,.08);
+}
+#duaNav::-webkit-scrollbar{display:none;}
+#duaNav .dua-link{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:30vw !important;
+  max-width:30vw !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  text-decoration:none !important;
+  background:transparent !important;
+  color:#ffffff !important;
+  border:1px solid rgba(255,255,255,1) !important;
+  border-radius:999px !important;
+  padding:7px 9px !important;
+  font-size:.76rem !important;
+  line-height:1 !important;
+  font-weight:600 !important;
+}
+#duaNav .dua-link.active{
+  background:#ffffff !important;
+  color:#234e5d !important;
+  border-color:#ffffff !important;
+}
+body{
+  padding-bottom:88px !important;
+}
+@media (min-width:700px){
+  body{padding-bottom:96px !important;}
+  #duaNav .dua-link{
+    min-width:180px !important;
+    max-width:180px !important;
+  }
+}
+</style>
+</head>
+<body>
+<header>
+<div class="topbar-inner">
+<h1>99 Duas Inspired by the Beautiful Names of Allah</h1>
+<p class="subtitle">Scroll through the names below to jump directly to each dua.</p>
+<div class="dua-nav-wrap">
+</div>
+</div>
+</header>
+<main>
+<section class="dua" id="dua-1">
+<div class="dua-number">1</div>
+<h2><span class="dua-title-line"><span class="english">Ya Rahman</span><span class="arabic">يا رحمن</span></span></h2>
+<div class="meaning">The Most Merciful</div>
+<div class="dua-text"><p>From Your Throne You wrote mercy upon Yourself. </p><p>You were merciful before there was anyone to receive mercy. </p><p>Embrace every part of me with that mercy: my past with its scars, my present with its needs, and my future with its uncertainties. </p><p>Let me taste the mercy You keep for those who return. </p><p>Reward me with the mercy I have yet to know, and raise me to the highest place in Paradise despite my lows. </p><p>Cover me from storms I do not see coming, mend me before I break, and spare me from trials of every kind. </p><p>Let Your mercy reach me in ways I will only understand when I finally meet You.</p></div>
+</section>
+<section class="dua" id="dua-2">
+<div class="dua-number">2</div>
+<h2><span class="dua-title-line"><span class="english">Ya Hayy</span><span class="arabic">يا حي</span></span></h2>
+<div class="meaning">The Ever-Living</div>
+<div class="dua-text"><p>The One my heart was created to seek. </p><p>Pull me away from every false worship, from anything that divides my devotion, until nothing fills my longing but You. </p><p>Unify my pursuits into a single direction, and when the world pulls me apart, center me in Your oneness.</p></div>
+</section>
+<section class="dua" id="dua-3">
+<div class="dua-number">3</div>
+<h2><span class="dua-title-line"><span class="english">Ya Ahad</span><span class="arabic">يا أحد</span></span></h2>
+<div class="meaning">The One</div>
+<div class="dua-text"><p>Open my heart to see that nothing compares to You, so that I am never overly impressed by anyone but You. </p><p>Let me love Your names and attributes in a way that frees me from all others but You.</p></div>
+</section>
+<section class="dua" id="dua-4">
+<div class="dua-number">4</div>
+<h2><span class="dua-title-line"><span class="english">Ya Wahid</span><span class="arabic">يا واحد</span></span></h2>
+<div class="meaning">The Unique</div>
+<div class="dua-text"><p>When I stand alone at the close of the night, let my solitude remind me of Your singular majesty. </p><p>Make my heart distinct by its devotion, and make me one of Your rarest servants.</p></div>
+</section>
+<section class="dua" id="dua-5">
+<div class="dua-number">5</div>
+<h2><span class="dua-title-line"><span class="english">Ya Hadi</span><span class="arabic">يا هادي</span></span></h2>
+<div class="meaning">The Guide</div>
+<div class="dua-text"><p>Guide me when my heart forgets the way. </p><p>Pull me back from every turn that leads me astray. </p><p>Let Your guidance feel closer than the doubts in my chest.</p></div>
+</section>
+<section class="dua" id="dua-6">
+<div class="dua-number">6</div>
+<h2><span class="dua-title-line"><span class="english">Ya Rashid</span><span class="arabic">يا رشيد</span></span></h2>
+<div class="meaning">The Guide to the Right Path</div>
+<div class="dua-text"><p>Teach me to see truth instinctively. </p><p>Make faith beloved to me, make righteousness feel natural, and let sin feel heavy on my chest and hated by my every breath. </p><p>Inspire me with wisdom that protects me even from myself.</p></div>
+</section>
+<section class="dua" id="dua-7">
+<div class="dua-number">7</div>
+<h2><span class="dua-title-line"><span class="english">Ya Nur</span><span class="arabic">يا نور</span></span></h2>
+<div class="meaning">The Light</div>
+<div class="dua-text"><p>Light every darkness I carried or carry within. </p><p>Let Your light pour into my heart and onto all my limbs until You make me a light, and everything I see reminds me of You.</p></div>
+</section>
+<section class="dua" id="dua-8">
+<div class="dua-number">8</div>
+<h2><span class="dua-title-line"><span class="english">Ya Mubin</span><span class="arabic">يا مبين</span></span></h2>
+<div class="meaning">The Manifest One</div>
+<div class="dua-text"><p>Make Your signs clear in what surrounds me and what is within me. </p><p>Reveal the lessons hidden in every trial. </p><p>Let me never lose sight of Your signs again.</p></div>
+</section>
+<section class="dua" id="dua-9">
+<div class="dua-number">9</div>
+<h2><span class="dua-title-line"><span class="english">Ya Wali</span><span class="arabic">يا ولي</span></span></h2>
+<div class="meaning">The Protecting Friend</div>
+<div class="dua-text"><p>Be my closest friend when the world drifts away. </p><p>Guard me with a grip that never slips. </p><p>Keep me firm on the ground of Your goodness. </p><p>Make my faith steady when my heart trembles. </p><p>Let me love what brings me to Your stability, and make me patient with what keeps me on its shore.</p></div>
+</section>
+<section class="dua" id="dua-10">
+<div class="dua-number">10</div>
+<h2><span class="dua-title-line"><span class="english">Ya Rafiq</span><span class="arabic">يا رفيق</span></span></h2>
+<div class="meaning">The Gentle Companion</div>
+<div class="dua-text"><p>Be gentle with my soul as You unfold Your plan. </p><p>Soften the path without removing its purpose. </p><p>Make me gentle with others as You have been gentle with me, and when I am lonely, fill that space with Your company.</p></div>
+</section>
+<section class="dua" id="dua-11">
+<div class="dua-number">11</div>
+<h2><span class="dua-title-line"><span class="english">Ya Nami</span><span class="arabic">يا نامي</span></span></h2>
+<div class="meaning">The One Who Causes Growth</div>
+<div class="dua-text"><p>Raise me the way You raise every seed from the soil. </p><p>Shape my growth with all You continue to give. </p><p>Let every season You place me in become a lesson in Your care.</p></div>
+</section>
+<section class="dua" id="dua-12">
+<div class="dua-number">12</div>
+<h2>Ya Mawla</h2>
+<div class="meaning">The Protector and Master</div>
+<div class="dua-text"><p>Be my protector when I have no one else to stand up for me. </p><p>Take charge of my affairs when I lose control of them. </p><p>Hold me near when fear surrounds me, and make Your guardianship always enough for me.</p></div>
+</section>
+<section class="dua" id="dua-13">
+<div class="dua-number">13</div>
+<h2><span class="dua-title-line"><span class="english">Ya Nasir</span><span class="arabic">يا نصير</span></span></h2>
+<div class="meaning">The Helper</div>
+<div class="dua-text"><p>Help me in every battle I cannot see. </p><p>Grant me triumph without arrogance, and victory only in a way that brings me closer to You.</p></div>
+</section>
+<section class="dua" id="dua-14">
+<div class="dua-number">14</div>
+<h2><span class="dua-title-line"><span class="english">Ya Aziz</span><span class="arabic">يا عزيز</span></span></h2>
+<div class="meaning">The Almighty</div>
+<div class="dua-text"><p>Teach my heart that true honor is to serve only You. </p><p>Let my dignity be in humility, my leadership in obedience, and my freedom in surrender.</p></div>
+</section>
+<section class="dua" id="dua-15">
+<div class="dua-number">15</div>
+<h2><span class="dua-title-line"><span class="english">Ya Malik</span><span class="arabic">يا ملك</span></span></h2>
+<div class="meaning">The King</div>
+<div class="dua-text"><p>You are the King of everything I know and hold. </p><p>Remind me that nothing I hold is truly mine and that every rise and fall belongs to Your decree. </p><p>Let my gratitude expand with every breath You lend to me.</p></div>
+</section>
+<section class="dua" id="dua-16">
+<div class="dua-number">16</div>
+<h2>Ya Malik Yawm ad-Din</h2>
+<div class="meaning">Master of the Day of Judgment</div>
+<div class="dua-text"><p>Owner of the day when debts are paid. </p><p>Teach me to settle my dues before I meet You. </p><p>Keep me honest with what I owe and hopeful in what You forgive.</p></div>
+</section>
+<section class="dua" id="dua-17">
+<div class="dua-number">17</div>
+<h2><span class="dua-title-line"><span class="english">Ya Malik al-Mulk</span><span class="arabic">يا مالك الملك</span></span></h2>
+<div class="meaning">The King of Kings</div>
+<div class="dua-text"><p>The King whose command no one can escape. </p><p>Let Your sovereignty humble my pride. </p><p>Make me content under Your rule, and protect me from a rebellious heart that would cause me to fall out of Your favor.</p></div>
+</section>
+<section class="dua" id="dua-18">
+<div class="dua-number">18</div>
+<h2><span class="dua-title-line"><span class="english">Ya Dhu’l-Jalal</span><span class="arabic">يا ذو الجلال</span></span></h2>
+<div class="meaning">The Possessor of Majesty</div>
+<div class="dua-text"><p>Fill my heart with reverence that draws me near, not fear that drives me away. </p><p>Let my awe of You refine me until I stand before You small but never disgraced.</p></div>
+</section>
+<section class="dua" id="dua-19">
+<div class="dua-number">19</div>
+<h2><span class="dua-title-line"><span class="english">Ya Khaliq</span><span class="arabic">يا خالق</span></span></h2>
+<div class="meaning">The Creator</div>
+<div class="dua-text"><p>You brought me out of nothingness into being. </p><p>Remind me that my existence itself is a mercy, that every breath, every cell, and every chance is a deliberate act of Your creation.</p></div>
+</section>
+<section class="dua" id="dua-20">
+<div class="dua-number">20</div>
+<h2><span class="dua-title-line"><span class="english">Ya Bari</span><span class="arabic">يا بارئ</span></span></h2>
+<div class="meaning">The Evolver</div>
+<div class="dua-text"><p>The One who perfects what He produces. </p><p>Repair what I have broken within myself. </p><p>Make me whole again with the same precision by which You fashioned all of Your creation.</p></div>
+</section>
+<section class="dua" id="dua-21">
+<div class="dua-number">21</div>
+<h2><span class="dua-title-line"><span class="english">Ya Musawwir</span><span class="arabic">يا مصور</span></span></h2>
+<div class="meaning">The Fashioner</div>
+<div class="dua-text"><p>You shaped me in the unseen, gave me form, face, and story. </p><p>Beautify my character as You have beautified my features. </p><p>Let what You see within me be more pleasing than what others see outside of me.</p></div>
+</section>
+<section class="dua" id="dua-22">
+<div class="dua-number">22</div>
+<h2><span class="dua-title-line"><span class="english">Ya Fatir</span><span class="arabic">يا فاطر</span></span></h2>
+<div class="meaning">The Originator</div>
+<div class="dua-text"><p>Keep creating new openings when I run out of ways. </p><p>Create for me new beginnings when I rush to my end, and new realities when I feel doomed by my sins. </p><p>Remake me with patience when I reach my limits, faith when I am afraid, and hope when I cannot imagine a way forward.</p></div>
+</section>
+<section class="dua" id="dua-23">
+<div class="dua-number">23</div>
+<h2><span class="dua-title-line"><span class="english">Ya Samad</span><span class="arabic">يا صمد</span></span></h2>
+<div class="meaning">The Eternal Refuge</div>
+<div class="dua-text"><p>The One who needs nothing while everything needs You. </p><p>Make me whole by depending only on You. </p><p>Fill the hollowness inside of me until no desire within me competes with Your glory.</p></div>
+</section>
+<section class="dua" id="dua-24">
+<div class="dua-number">24</div>
+<h2><span class="dua-title-line"><span class="english">Ya Haqq</span><span class="arabic">يا حق</span></span></h2>
+<div class="meaning">The Truth</div>
+<div class="dua-text"><p>Make Your truth the anchor of my heart and my guiding path to Your light. </p><p>Let every lie I chase collapse before Your reality, and every truth I seek lead me to Your next promise. </p><p>Keep me grounded in what endures, and turn my eyes away from what deceives.</p></div>
+</section>
+<section class="dua" id="dua-25">
+<div class="dua-number">25</div>
+<h2><span class="dua-title-line"><span class="english">Ya Wasi</span><span class="arabic">يا واسع</span></span></h2>
+<div class="meaning">The All-Encompassing</div>
+<div class="dua-text"><p>Expand my heart to hold more gratitude, my patience to endure with more grace, and my vision to see beyond my limits.</p></div>
+</section>
+<section class="dua" id="dua-26">
+<div class="dua-number">26</div>
+<h2><span class="dua-title-line"><span class="english">Ya Ghafur</span><span class="arabic">يا غفور</span></span></h2>
+<div class="meaning">The All-Forgiving</div>
+<div class="dua-text"><p>Forgive me for every single sin I have ever put forth. </p><p>Cover me in this life and the next, and do not let shame keep me from returning to You.</p></div>
+</section>
+<section class="dua" id="dua-27">
+<div class="dua-number">27</div>
+<h2><span class="dua-title-line"><span class="english">Ya Ghaffar</span><span class="arabic">يا غفار</span></span></h2>
+<div class="meaning">The Oft-Forgiving</div>
+<div class="dua-text"><p>For every time I fall and rise again, meet me with another chance. </p><p>Let my heart grow softer with every repentance, and let my view of the door of Your mercy only grow wider, for You have never tired of forgiving me despite my constant sins. </p><p>Forgive me for what I know and what I do not, what I have done and what I still may do, and turn the stains of my past into light on my scrolls. </p><p>Reach me with Your forgiveness even in the holes I have dug for myself.</p></div>
+</section>
+<section class="dua" id="dua-28">
+<div class="dua-number">28</div>
+<h2><span class="dua-title-line"><span class="english">Ya Tawwab</span><span class="arabic">يا تواب</span></span></h2>
+<div class="meaning">The Accepter of Repentance</div>
+<div class="dua-text"><p>Turn toward me so that I may turn back to You, and accept me every time I return. </p><p>Make repentance my constant companion and my joy in finding You again.</p></div>
+</section>
+<section class="dua" id="dua-29">
+<div class="dua-number">29</div>
+<h2><span class="dua-title-line"><span class="english">Ya Wadud</span><span class="arabic">يا ودود</span></span></h2>
+<div class="meaning">The Most Loving</div>
+<div class="dua-text"><p>Love me even after I falter, and let Your love reach me through every mercy I overlook. </p><p>Teach me to love You more than what You give, and to find sweetness in every test that draws me closer to Your love. </p><p>Announce Your love for me in the heavens until I hear that announcement myself in Paradise.</p></div>
+</section>
+<section class="dua" id="dua-30">
+<div class="dua-number">30</div>
+<h2><span class="dua-title-line"><span class="english">Ya Muhsin</span><span class="arabic">يا محسن</span></span></h2>
+<div class="meaning">The Bestower of Good</div>
+<div class="dua-text"><p>You perfect everything You touch. </p><p>Make me one of those who do good because You do good, then let my deeds of excellence toward others be a reflection of Your unmatched perfection.</p></div>
+</section>
+<section class="dua" id="dua-31">
+<div class="dua-number">31</div>
+<h2><span class="dua-title-line"><span class="english">Ya Shakur</span><span class="arabic">يا شكور</span></span></h2>
+<div class="meaning">The Most Appreciative</div>
+<div class="dua-text"><p>For every small effort I make, reward me beyond measure. </p><p>Let me never grow tired of thanking You, and never forget that gratitude itself is a gift from You. </p><p>Accept from me what is broken, and multiply it until it becomes whole.</p></div>
+</section>
+<section class="dua" id="dua-32">
+<div class="dua-number">32</div>
+<h2><span class="dua-title-line"><span class="english">Ya Sami</span><span class="arabic">يا سميع</span></span></h2>
+<div class="meaning">The All-Hearing</div>
+<div class="dua-text"><p>You hear every sound before it is spoken. </p><p>Inspire in me the words that are pleasing to You. </p><p>Make sincere the dua that I utter between breaths. </p><p>Let me never doubt that You are listening, and never tire of my calling.</p></div>
+</section>
+<section class="dua" id="dua-33">
+<div class="dua-number">33</div>
+<h2><span class="dua-title-line"><span class="english">Ya Qarib</span><span class="arabic">يا قريب</span></span></h2>
+<div class="meaning">The Near One</div>
+<div class="dua-text"><p>You are nearer than every thought I hide. </p><p>Let me feel Your nearness in the stillness of my prayer. </p><p>Let the clarity and comfort of Your closeness cut through all the noise outside, and forgive me for what should have never made it inside.</p></div>
+</section>
+<section class="dua" id="dua-34">
+<div class="dua-number">34</div>
+<h2><span class="dua-title-line"><span class="english">Ya Mujib</span><span class="arabic">يا مجيب</span></span></h2>
+<div class="meaning">The Responder</div>
+<div class="dua-text"><p>Answer not only what I ask, but what I mean. </p><p>Give me what I would have prayed for if I knew what was best for me. </p><p>When I raise my hands to You, fill them only with what draws me closer to You.</p></div>
+</section>
+<section class="dua" id="dua-35">
+<div class="dua-number">35</div>
+<h2>Ya Mu’min</h2>
+<div class="meaning">The Giver of Faith</div>
+<div class="dua-text"><p>Grant me faith that no fear can shake. </p><p>Secure my heart in Your promise, and guard my soul from every whisper that breeds doubt.</p></div>
+</section>
+<section class="dua" id="dua-36">
+<div class="dua-number">36</div>
+<h2><span class="dua-title-line"><span class="english">Ya Muhaymin</span><span class="arabic">يا مهيمن</span></span></h2>
+<div class="meaning">The Overseer</div>
+<div class="dua-text"><p>The Watchful One who never sleeps. </p><p>Watch over me in the moments that no one else can, and be my shield from even what I see but cannot change. </p><p>Preserve my faith through trial and time. </p><p>Guard my loved ones when they are far away from me. </p><p>Keep safe the blessings I forgot to thank You for, and protect me, for without You I cannot protect myself.</p></div>
+</section>
+<section class="dua" id="dua-37">
+<div class="dua-number">37</div>
+<h2><span class="dua-title-line"><span class="english">Ya Wakil</span><span class="arabic">يا وكيل</span></span></h2>
+<div class="meaning">The Disposer of Affairs</div>
+<div class="dua-text"><p>I entrust to You my every matter, what I seemingly can handle and that which is obviously beyond my control. </p><p>Take charge of what confuses me and carry what I cannot hold.</p></div>
+</section>
+<section class="dua" id="dua-38">
+<div class="dua-number">38</div>
+<h2><span class="dua-title-line"><span class="english">Ya Basir</span><span class="arabic">يا بصير</span></span></h2>
+<div class="meaning">The All-Seeing</div>
+<div class="dua-text"><p>You see what no one else sees, every tear I hide, every effort unnoticed. </p><p>Let me find comfort in being seen by You when I feel invisible to the rest of the world.</p></div>
+</section>
+<section class="dua" id="dua-39">
+<div class="dua-number">39</div>
+<h2><span class="dua-title-line"><span class="english">Ya Shahid</span><span class="arabic">يا شهيد</span></span></h2>
+<div class="meaning">The Witness</div>
+<div class="dua-text"><p>Be my witness when my intentions are pure and when they falter. </p><p>Let my fear of You set them aright. </p><p>Let me live conscious that You are always truly watching, and die as one who lived truthfully under Your sight.</p></div>
+</section>
+<section class="dua" id="dua-40">
+<div class="dua-number">40</div>
+<h2><span class="dua-title-line"><span class="english">Ya Raqib</span><span class="arabic">يا رقيب</span></span></h2>
+<div class="meaning">The Watchful</div>
+<div class="dua-text"><p>Watch over my heart when it drifts and over my thoughts before they turn to deeds. </p><p>Make me mindful of You in secret and in public until awareness of You becomes my protection.</p></div>
+</section>
+<section class="dua" id="dua-41">
+<div class="dua-number">41</div>
+<h2><span class="dua-title-line"><span class="english">Ya Sattar</span><span class="arabic">يا ستار</span></span></h2>
+<div class="meaning">The Veiler of Faults</div>
+<div class="dua-text"><p>Cover my faults with the same grace You always have. </p><p>Hide my flaws even as You heal them. </p><p>Let my repentance be quiet, my shame sincere, and my forgiveness made complete beneath Your protective veil.</p></div>
+</section>
+<section class="dua" id="dua-42">
+<div class="dua-number">42</div>
+<h2><span class="dua-title-line"><span class="english">Ya Subhan</span><span class="arabic">يا سبحان</span></span></h2>
+<div class="meaning">The Perfect One</div>
+<div class="dua-text"><p>How perfect You are beyond everything I can imagine. </p><p>When the world feels loud and heavy, remind me that You are untouched by its chaos. </p><p>Let my glorification and praise of You rise above the darkness.</p></div>
+</section>
+<section class="dua" id="dua-43">
+<div class="dua-number">43</div>
+<h2><span class="dua-title-line"><span class="english">Ya Quddus</span><span class="arabic">يا قدوس</span></span></h2>
+<div class="meaning">The Holy One</div>
+<div class="dua-text"><p>Purify me inside and out. </p><p>Cleanse my worship of pride, my heart of resentment, and my soul of anything that clouds its way back to You.</p></div>
+</section>
+<section class="dua" id="dua-44">
+<div class="dua-number">44</div>
+<h2><span class="dua-title-line"><span class="english">Ya Salam</span><span class="arabic">يا سلام</span></span></h2>
+<div class="meaning">The Source of Peace</div>
+<div class="dua-text"><p>Send peace into every storm within my chest. </p><p>Let Your calm settle where fear once lived. </p><p>Make me a source of peace for others until I meet You in the Home of Peace.</p></div>
+</section>
+<section class="dua" id="dua-45">
+<div class="dua-number">45</div>
+<h2><span class="dua-title-line"><span class="english">Ya Ghani</span><span class="arabic">يا غني</span></span></h2>
+<div class="meaning">The Self-Sufficient</div>
+<div class="dua-text"><p>You are free of all need while I am always in need of You. </p><p>Let me never beg from those as poor as me. </p><p>Make me rich through contentment, and fill my heart with gratitude instead of greed.</p></div>
+</section>
+<section class="dua" id="dua-46">
+<div class="dua-number">46</div>
+<h2><span class="dua-title-line"><span class="english">Ya Hamid</span><span class="arabic">يا حميد</span></span></h2>
+<div class="meaning">The Praiseworthy</div>
+<div class="dua-text"><p>You are praised whether or not I remember to say it. </p><p>Let my praise echo in hardship as it does in ease, and let every breath I take be a quiet thank You.</p></div>
+</section>
+<section class="dua" id="dua-47">
+<div class="dua-number">47</div>
+<h2><span class="dua-title-line"><span class="english">Ya Fattah</span><span class="arabic">يا فتاح</span></span></h2>
+<div class="meaning">The Opener</div>
+<div class="dua-text"><p>Open doors I cannot find and hearts that I cannot reach. </p><p>Open paths to good where I only see walls, and open my chest to trust whatever You have decreed.</p></div>
+</section>
+<section class="dua" id="dua-48">
+<div class="dua-number">48</div>
+<h2><span class="dua-title-line"><span class="english">Ya Qabid / Ya Basit</span><span class="arabic">يا قابض / يا باسط</span></span></h2>
+<div class="meaning">The Withholder / The Expander</div>
+<div class="dua-text"><p>When You withhold, let me not lose hope, and when You expand, let me not lose humility. </p><p>Teach me to find You in both the squeeze and the release.</p></div>
+</section>
+<section class="dua" id="dua-49">
+<div class="dua-number">49</div>
+<h2>Ya Muqaddim / Ya Mu’akhkhir</h2>
+<div class="meaning">The Advancer / The Delayer</div>
+<div class="dua-text"><p>When You bring me forward, make me worthy of the moment, and when You hold me back, make me patient with the waiting. </p><p>Advance me only when the step will please You, and delay me only when the pause will protect me.</p></div>
+</section>
+<section class="dua" id="dua-50">
+<div class="dua-number">50</div>
+<h2>Ya ‘Alim</h2>
+<div class="meaning">The All-Knowing</div>
+<div class="dua-text"><p>You know what I hide and what I show, what I have done and what I will do. </p><p>Let what You know of me be better than what people know of me, and forgive me for what only You know.</p></div>
+</section>
+<section class="dua" id="dua-51">
+<div class="dua-number">51</div>
+<h2><span class="dua-title-line"><span class="english">Ya Hakim</span><span class="arabic">يا حكيم</span></span></h2>
+<div class="meaning">The Wise</div>
+<div class="dua-text"><p>Your wisdom surrounds what I cannot understand. </p><p>When I question the purpose, remind me of Your perfection. </p><p>Grant me the patience to trust Your timing and the insight to see the beauty unfolding in Your decree.</p></div>
+</section>
+<section class="dua" id="dua-52">
+<div class="dua-number">52</div>
+<h2><span class="dua-title-line"><span class="english">Ya Latif</span><span class="arabic">يا لطيف</span></span></h2>
+<div class="meaning">The Subtle One</div>
+<div class="dua-text"><p>Work gently through the details of my life. </p><p>Send kindnesses that I may not notice until I look back but can still feel at every moment. </p><p>Let Your subtle care reach the corners of my heart that no words or people could ever touch.</p></div>
+</section>
+<section class="dua" id="dua-53">
+<div class="dua-number">53</div>
+<h2><span class="dua-title-line"><span class="english">Ya Khabir</span><span class="arabic">يا خبير</span></span></h2>
+<div class="meaning">The All-Aware</div>
+<div class="dua-text"><p>You are fully aware of what is within me, my fears, my flaws, and my hidden intentions. </p><p>Purify what You see inside of me until it is pleasing to You.</p></div>
+</section>
+<section class="dua" id="dua-54">
+<div class="dua-number">54</div>
+<h2><span class="dua-title-line"><span class="english">Ya Qahhar</span><span class="arabic">يا قهار</span></span></h2>
+<div class="meaning">The Subduer</div>
+<div class="dua-text"><p>Subdue every tyrant who raises a hand against the innocent. </p><p>Break the arrogance of those who spill the blood of Your beloved servants. </p><p>Subdue also the arrogance within me so that I never resemble the oppressor in any form.</p></div>
+</section>
+<section class="dua" id="dua-55">
+<div class="dua-number">55</div>
+<h2><span class="dua-title-line"><span class="english">Ya Jabbar</span><span class="arabic">يا جبار</span></span></h2>
+<div class="meaning">The Restorer / The Compeller</div>
+<div class="dua-text"><p>Mend what their hands have broken, rebuild the lands they have shattered, and heal the hearts that tremble for You. </p><p>Set right the fractures in our ummah, and make every wound a doorway back to You.</p></div>
+</section>
+<section class="dua" id="dua-56">
+<div class="dua-number">56</div>
+<h2><span class="dua-title-line"><span class="english">Ya Mutakabbir</span><span class="arabic">يا متكبر</span></span></h2>
+<div class="meaning">The Majestic / The Supreme</div>
+<div class="dua-text"><p>You are too glorious for injustice to prevail, too mighty for oppression to last. </p><p>Show the tyrants that no throne stands forever, and honor the humble who still call Your name even beneath the rubble.</p></div>
+</section>
+<section class="dua" id="dua-57">
+<div class="dua-number">57</div>
+<h2><span class="dua-title-line"><span class="english">Ya Qadir</span><span class="arabic">يا قادر</span></span></h2>
+<div class="meaning">The Able / The Powerful</div>
+<div class="dua-text"><p>Nothing is beyond Your power. </p><p>As You part the seas and revive the dead, lift our people from beneath the weight of this world. </p><p>Show us that no injustice is too deep for You to overturn.</p></div>
+</section>
+<section class="dua" id="dua-58">
+<div class="dua-number">58</div>
+<h2><span class="dua-title-line"><span class="english">Ya Muqtadir</span><span class="arabic">يا مقتدر</span></span></h2>
+<div class="meaning">The All-Powerful</div>
+<div class="dua-text"><p>Your power is perfect. </p><p>Let those who boast of might see how small they really are. </p><p>Crush the arrogance that claims control over Your creation, and remind us that even the most helpless among us are upheld by You alone.</p></div>
+</section>
+<section class="dua" id="dua-59">
+<div class="dua-number">59</div>
+<h2><span class="dua-title-line"><span class="english">Ya Muqsit</span><span class="arabic">يا مقسط</span></span></h2>
+<div class="meaning">The Equitable</div>
+<div class="dua-text"><p>O You whose balance never tips unfairly. </p><p>When the world feels rigged for cruelty, remind us that You are merely delaying the cruel and never unjust. </p><p>Make us witnesses to Your justice in this life and part of its fulfillment in the next.</p></div>
+</section>
+<section class="dua" id="dua-60">
+<div class="dua-number">60</div>
+<h2><span class="dua-title-line"><span class="english">Ya Hakam</span><span class="arabic">يا حكم</span></span></h2>
+<div class="meaning">The Judge</div>
+<div class="dua-text"><p>You are the Judge when the courts of men fail. </p><p>When truth is buried beneath lies, let Your verdict rise clear and unstoppable.</p></div>
+</section>
+<section class="dua" id="dua-61">
+<div class="dua-number">61</div>
+<h2><span class="dua-title-line"><span class="english">Ya Hasib</span><span class="arabic">يا حسيب</span></span></h2>
+<div class="meaning">The Accounter</div>
+<div class="dua-text"><p>You are enough when proof is hidden and power is abused. </p><p>Account for every tear that fell unseen and every cruelty that was silenced by fear.</p></div>
+</section>
+<section class="dua" id="dua-62">
+<div class="dua-number">62</div>
+<h2><span class="dua-title-line"><span class="english">Ya Razzaq</span><span class="arabic">يا رزاق</span></span></h2>
+<div class="meaning">The Provider</div>
+<div class="dua-text"><p>You provide for every creature in ways we cannot see. </p><p>Feed my heart before my hands, and let my trust in Your sustenance outweigh my fear of the future.</p></div>
+</section>
+<section class="dua" id="dua-63">
+<div class="dua-number">63</div>
+<h2><span class="dua-title-line"><span class="english">Ya Karim</span><span class="arabic">يا كريم</span></span></h2>
+<div class="meaning">The Most Generous</div>
+<div class="dua-text"><p>You give beyond what I deserve. </p><p>Let Your generosity flow through me as a reflection of how it flows from You.</p></div>
+</section>
+<section class="dua" id="dua-64">
+<div class="dua-number">64</div>
+<h2><span class="dua-title-line"><span class="english">Ya Akram</span><span class="arabic">يا أكرم</span></span></h2>
+<div class="meaning">The Most Bountiful</div>
+<div class="dua-text"><p>Honor me with contentment in every decree. </p><p>Make my share of this world enough and my portion of the next abundant.</p></div>
+</section>
+<section class="dua" id="dua-65">
+<div class="dua-number">65</div>
+<h2><span class="dua-title-line"><span class="english">Ya Qawi</span><span class="arabic">يا قوي</span></span></h2>
+<div class="meaning">The Strong</div>
+<div class="dua-text"><p>Strengthen me where I am weak and make me firm where I bend too easily. </p><p>Lift me so that I can lift others without ever believing I lifted myself.</p></div>
+</section>
+<section class="dua" id="dua-66">
+<div class="dua-number">66</div>
+<h2><span class="dua-title-line"><span class="english">Ya Matin</span><span class="arabic">يا متين</span></span></h2>
+<div class="meaning">The Firm One</div>
+<div class="dua-text"><p>Make me steady when everything else shakes. </p><p>Let my faith be anchored deep enough so that no loss can uproot it.</p></div>
+</section>
+<section class="dua" id="dua-67">
+<div class="dua-number">67</div>
+<h2><span class="dua-title-line"><span class="english">Ya Adl</span><span class="arabic">يا عدل</span></span></h2>
+<div class="meaning">The Utterly Just</div>
+<div class="dua-text"><p>When injustice clouds the world around me, remind me that Your justice never sleeps. </p><p>Let my heart rest in the certainty that every wrong will be answered and every oppressed soul restored. </p><p>Make me among those who seek fairness in my actions while trusting the perfection of Your judgment.</p></div>
+</section>
+<section class="dua" id="dua-68">
+<div class="dua-number">68</div>
+<h2><span class="dua-title-line"><span class="english">Ya Mu'izz</span><span class="arabic">يا معز</span></span></h2>
+<div class="meaning">The Bestower of Honor</div>
+<div class="dua-text"><p>Honor me not with status that fades but with a heart that remembers You. </p><p>Let my worth never depend on the praise of people or the recognition of this world. </p><p>Raise me through sincerity so that my honor is found only in serving You.</p></div>
+</section>
+<section class="dua" id="dua-69">
+<div class="dua-number">69</div>
+<h2><span class="dua-title-line"><span class="english">Ya Mudhill</span><span class="arabic">يا مذل</span></span></h2>
+<div class="meaning">The One Who Humiliates</div>
+<div class="dua-text"><p>Protect me from the humiliation that comes from arrogance and distance from You. </p><p>If pride begins to rise in my heart, humble me before it blinds me. </p><p>Let humility be my protection and obedience my dignity.</p></div>
+</section>
+<section class="dua" id="dua-70">
+<div class="dua-number">70</div>
+<h2><span class="dua-title-line"><span class="english">Ya Khafid</span><span class="arabic">يا خافض</span></span></h2>
+<div class="meaning">The One Who Lowers</div>
+<div class="dua-text"><p>Lower within me every arrogance that distances me from Your mercy. </p><p>Bring down the pride that clouds my judgment and weakens my sincerity. </p><p>Let every lowering of my ego become a step toward a purer heart.</p></div>
+</section>
+<section class="dua" id="dua-71">
+<div class="dua-number">71</div>
+<h2><span class="dua-title-line"><span class="english">Ya Rafi'</span><span class="arabic">يا رافع</span></span></h2>
+<div class="meaning">The One Who Raises</div>
+<div class="dua-text"><p>Raise my rank through sincerity rather than recognition. </p><p>Elevate my soul through acts done quietly for Your sake. </p><p>Lift my heart above the distractions of this world so that my focus remains on You.</p></div>
+</section>
+<section class="dua" id="dua-72">
+<div class="dua-number">72</div>
+<h2><span class="dua-title-line"><span class="english">Ya Muqit</span><span class="arabic">يا مقيت</span></span></h2>
+<div class="meaning">The Sustainer</div>
+<div class="dua-text"><p>Sustain me not only with provision for my body but nourishment for my soul. </p><p>Feed my heart with remembrance and strengthen my spirit with faith. </p><p>Let every blessing remind me that my life is sustained only by You.</p></div>
+</section>
+<section class="dua" id="dua-73">
+<div class="dua-number">73</div>
+<h2><span class="dua-title-line"><span class="english">Ya Hafiz</span><span class="arabic">يا حفيظ</span></span></h2>
+<div class="meaning">The Preserver</div>
+<div class="dua-text"><p>Preserve my faith when trials surround me and doubts appear. </p><p>Protect my heart from influences that weaken my trust in You. </p><p>Guard my path so that every step I take moves me closer to Your pleasure.</p></div>
+</section>
+<section class="dua" id="dua-74">
+<div class="dua-number">74</div>
+<h2><span class="dua-title-line"><span class="english">Ya Jalil</span><span class="arabic">يا جليل</span></span></h2>
+<div class="meaning">The Majestic</div>
+<div class="dua-text"><p>Fill my heart with awe of Your greatness so that nothing in this world overwhelms me again. </p><p>Let the majesty of Your presence quiet every fear within me. </p><p>Remind me that the power of creation is small before Your majesty.</p></div>
+</section>
+<section class="dua" id="dua-75">
+<div class="dua-number">75</div>
+<h2><span class="dua-title-line"><span class="english">Ya Majid</span><span class="arabic">يا ماجد</span></span></h2>
+<div class="meaning">The Glorious</div>
+<div class="dua-text"><p>Let my heart recognize Your glory in every creation around me. </p><p>Remind me that every beauty I witness is only a reflection of Your perfection. </p><p>Fill my soul with gratitude whenever I see the signs of Your greatness.</p></div>
+</section>
+<section class="dua" id="dua-76">
+<div class="dua-number">76</div>
+<h2><span class="dua-title-line"><span class="english">Ya Majeed</span><span class="arabic">يا مجيد</span></span></h2>
+<div class="meaning">The Most Noble</div>
+<div class="dua-text"><p>Grant me a share of nobility through character and sincerity. </p><p>Let kindness, patience, and truth shape the way I live among others. </p><p>Make my actions reflect the honor that comes from serving You.</p></div>
+</section>
+<section class="dua" id="dua-77">
+<div class="dua-number">77</div>
+<h2><span class="dua-title-line"><span class="english">Ya Waliyy</span><span class="arabic">يا ولي</span></span></h2>
+<div class="meaning">The Protecting Guardian</div>
+<div class="dua-text"><p>Be my guardian in every moment of weakness. </p><p>Stand beside me when I feel alone and uncertain. </p><p>Guide me with a protection that keeps my heart firm in faith.</p></div>
+</section>
+<section class="dua" id="dua-78">
+<div class="dua-number">78</div>
+<h2><span class="dua-title-line"><span class="english">Ya Muqsit</span><span class="arabic">يا مقسط</span></span></h2>
+<div class="meaning">The Equitable</div>
+<div class="dua-text"><p>When the world appears unfair and unbalanced, remind me that Your scales never tilt unjustly. </p><p>Let my heart remain patient until Your wisdom becomes clear. </p><p>Make me among those who trust Your justice even before they witness it.</p></div>
+</section>
+<section class="dua" id="dua-79">
+<div class="dua-number">79</div>
+<h2><span class="dua-title-line"><span class="english">Ya Jami</span><span class="arabic">يا جامع</span></span></h2>
+<div class="meaning">The Gatherer</div>
+<div class="dua-text"><p>Gather my scattered thoughts and restless worries. </p><p>Bring together the broken pieces of my hopes and intentions. </p><p>Unite my heart around a single purpose that leads me back to You.</p></div>
+</section>
+<section class="dua" id="dua-80">
+<div class="dua-number">80</div>
+<h2><span class="dua-title-line"><span class="english">Ya Mughni</span><span class="arabic">يا مغني</span></span></h2>
+<div class="meaning">The Enricher</div>
+<div class="dua-text"><p>Enrich my heart with contentment so that I never feel poor while remembering You. </p><p>Let the wealth of my soul outweigh the riches of this world. </p><p>Make gratitude my greatest treasure and closeness to You my greatest wealth.</p></div>
+</section>
+<section class="dua" id="dua-81">
+<div class="dua-number">81</div>
+<h2><span class="dua-title-line"><span class="english">Ya Mani</span><span class="arabic">يا مانع</span></span></h2>
+<div class="meaning">The Withholder</div>
+<div class="dua-text"><p>If something is withheld from me, let me recognize it as Your protection. </p><p>Guard me from blessings that would harm my faith or mislead my heart. </p><p>Let every prevention from You become a mercy I learn to trust.</p></div>
+</section>
+<section class="dua" id="dua-82">
+<div class="dua-number">82</div>
+<h2><span class="dua-title-line"><span class="english">Ya Darr</span><span class="arabic">يا ضار</span></span></h2>
+<div class="meaning">The One Who Allows Harm</div>
+<div class="dua-text"><p>When hardship reaches me, let it bring me closer to You rather than further away. </p><p>Turn every pain into purification and every trial into growth. </p><p>Let difficulty strengthen my patience and deepen my reliance upon You.</p></div>
+</section>
+<section class="dua" id="dua-83">
+<div class="dua-number">83</div>
+<h2><span class="dua-title-line"><span class="english">Ya Nafi</span><span class="arabic">يا نافع</span></span></h2>
+<div class="meaning">The Bestower of Benefit</div>
+<div class="dua-text"><p>Grant me benefits that endure beyond this life. </p><p>Let the good I receive inspire goodness toward others. </p><p>Make every blessing a bridge that leads me closer to Your pleasure.</p></div>
+</section>
+<section class="dua" id="dua-84">
+<div class="dua-number">84</div>
+<h2><span class="dua-title-line"><span class="english">Ya Badi</span><span class="arabic">يا بديع</span></span></h2>
+<div class="meaning">The Originator</div>
+<div class="dua-text"><p>Create for me new beginnings when hope fades within my heart. </p><p>Show me possibilities I never imagined and paths I never considered. </p><p>Remind me that Your creativity knows no limits and Your mercy always renews.</p></div>
+</section>
+<section class="dua" id="dua-85">
+<div class="dua-number">85</div>
+<h2><span class="dua-title-line"><span class="english">Ya Baqi</span><span class="arabic">يا باقي</span></span></h2>
+<div class="meaning">The Everlasting</div>
+<div class="dua-text"><p>Remind me that everything in this world will fade except You. </p><p>Anchor my heart to what remains when all else disappears. </p><p>Let my love for what is eternal outweigh my attachment to what is temporary.</p></div>
+</section>
+<section class="dua" id="dua-86">
+<div class="dua-number">86</div>
+<h2><span class="dua-title-line"><span class="english">Ya Warith</span><span class="arabic">يا وارث</span></span></h2>
+<div class="meaning">The Inheritor</div>
+<div class="dua-text"><p>When all things pass away and return to You, let my only inheritance be Your mercy. </p><p>Make my legacy one of faith and goodness that remains after I am gone. </p><p>Allow the traces I leave behind to lead others closer to remembering You.</p></div>
+</section>
+<section class="dua" id="dua-87">
+<div class="dua-number">87</div>
+<h2><span class="dua-title-line"><span class="english">Ya Rashid</span><span class="arabic">يا رشيد</span></span></h2>
+<div class="meaning">The Guide to the Right Path</div>
+<div class="dua-text"><p>Guide me toward wisdom in every decision I make. </p><p>Let patience and reflection shape my understanding of life. </p><p>Help me grow into a person whose actions reflect Your guidance.</p></div>
+</section>
+<section class="dua" id="dua-88">
+<div class="dua-number">88</div>
+<h2><span class="dua-title-line"><span class="english">Ya Sabur</span><span class="arabic">يا صبور</span></span></h2>
+<div class="meaning">The Most Patient</div>
+<div class="dua-text"><p>Teach me patience that reflects the mercy You show toward me. </p><p>When delays frustrate me, remind me of the wisdom in Your timing. </p><p>Let endurance become a strength that deepens my trust in You.</p></div>
+</section>
+<section class="dua" id="dua-89">
+<div class="dua-number">89</div>
+<h2><span class="dua-title-line"><span class="english">Ya Qadir</span><span class="arabic">يا قادر</span></span></h2>
+<div class="meaning">The All-Powerful</div>
+<div class="dua-text"><p>Remind me that nothing lies beyond Your power. </p><p>When I feel trapped by circumstances, show me that Your decree can change everything. </p><p>Let my hope remain firm in the limitless strength of Your will.</p></div>
+</section>
+<section class="dua" id="dua-90">
+<div class="dua-number">90</div>
+<h2><span class="dua-title-line"><span class="english">Ya Muqtadir</span><span class="arabic">يا مقتدر</span></span></h2>
+<div class="meaning">The Determiner</div>
+<div class="dua-text"><p>You control what others believe they control. </p><p>Show me that every authority in this world exists only through Your permission. </p><p>Let my trust rest in Your power rather than the power of people.</p></div>
+</section>
+<section class="dua" id="dua-91">
+<div class="dua-number">91</div>
+<h2><span class="dua-title-line"><span class="english">Ya Qawi</span><span class="arabic">يا قوي</span></span></h2>
+<div class="meaning">The Most Strong</div>
+<div class="dua-text"><p>Strengthen me when my resolve weakens and my patience fades. </p><p>Grant me strength that comes from reliance upon You. </p><p>Let my perseverance become a reflection of Your strength supporting me.</p></div>
+</section>
+<section class="dua" id="dua-92">
+<div class="dua-number">92</div>
+<h2><span class="dua-title-line"><span class="english">Ya Matin</span><span class="arabic">يا متين</span></span></h2>
+<div class="meaning">The Firm</div>
+<div class="dua-text"><p>Make my faith steady when everything around me feels uncertain. </p><p>Anchor my heart so deeply in trust that no storm can uproot it. </p><p>Let my reliance on You become the foundation of my strength.</p></div>
+</section>
+<section class="dua" id="dua-93">
+<div class="dua-number">93</div>
+<h2><span class="dua-title-line"><span class="english">Ya Hakim</span><span class="arabic">يا حكيم</span></span></h2>
+<div class="meaning">The Most Wise</div>
+<div class="dua-text"><p>When I struggle to understand what happens around me, remind me of Your wisdom. </p><p>Let me trust that every decree carries a purpose beyond what I can see. </p><p>Grant me patience until Your wisdom becomes clear.</p></div>
+</section>
+<section class="dua" id="dua-94">
+<div class="dua-number">94</div>
+<h2><span class="dua-title-line"><span class="english">Ya Latif</span><span class="arabic">يا لطيف</span></span></h2>
+<div class="meaning">The Most Subtle</div>
+<div class="dua-text"><p>Work gently through the details of my life. </p><p>Send kindness I may not notice until I look back. </p><p>Let Your subtle care reach the corners of my heart that no one else can reach.</p></div>
+</section>
+<section class="dua" id="dua-95">
+<div class="dua-number">95</div>
+<h2><span class="dua-title-line"><span class="english">Ya Khabir</span><span class="arabic">يا خبير</span></span></h2>
+<div class="meaning">The All-Aware</div>
+<div class="dua-text"><p>You know what lies within my heart before I speak it. </p><p>Purify my intentions and guide my hidden thoughts toward goodness. </p><p>Let what You know of me be better than what people see.</p></div>
+</section>
+<section class="dua" id="dua-96">
+<div class="dua-number">96</div>
+<h2><span class="dua-title-line"><span class="english">Ya Sami</span><span class="arabic">يا سميع</span></span></h2>
+<div class="meaning">The All-Hearing</div>
+<div class="dua-text"><p>You hear every whisper before it reaches my lips. </p><p>Accept the prayers I struggle to express. </p><p>Let my voice always rise toward You with sincerity.</p></div>
+</section>
+<section class="dua" id="dua-97">
+<div class="dua-number">97</div>
+<h2><span class="dua-title-line"><span class="english">Ya Basir</span><span class="arabic">يا بصير</span></span></h2>
+<div class="meaning">The All-Seeing</div>
+<div class="dua-text"><p>You see what no one else notices. </p><p>Every effort, every tear, every hidden struggle is known to You. </p><p>Let the comfort of being seen by You strengthen my heart.</p></div>
+</section>
+<section class="dua" id="dua-98">
+<div class="dua-number">98</div>
+<h2><span class="dua-title-line"><span class="english">Ya Qarib</span><span class="arabic">يا قريب</span></span></h2>
+<div class="meaning">The Near</div>
+<div class="dua-text"><p>You are nearer to me than I realize. </p><p>Let me feel Your closeness in the stillness of my prayers. </p><p>Bring peace to my heart through the certainty that You are always near.</p></div>
+</section>
+<section class="dua" id="dua-99">
+<div class="dua-number">99</div>
+<h2><span class="dua-title-line"><span class="english">Ya Allah</span><span class="arabic">يا الله</span></span></h2>
+<div class="meaning">The Greatest Name</div>
+<div class="dua-text"><p>You are the One whose name contains every perfection. </p><p>Let every prayer, every hope, and every breath lead me back to You. </p><p>Accept my return, forgive my shortcomings, and allow my final words to be remembrance of You.</p></div>
+</section>
+<div class="footer-note">Built for simple reading and sharing across phones, tablets, and desktops.</div>
+</main>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const links = Array.from(document.querySelectorAll('.dua-link'));
+      const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+      function setActive(id) {
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+        const active = links.find(a => a.getAttribute('href') === '#' + id);
+        if (active) active.scrollIntoView({ behavior:'smooth', inline:'center', block:'nearest' });
+      }
+
+      links.forEach(a => {
+        a.addEventListener('click', function(e) {
+          e.preventDefault();
+          const id = this.getAttribute('href').slice(1);
+          const el = document.getElementById(id);
+          if (!el) return;
+          setActive(id);
+          el.scrollIntoView({ behavior:'smooth', block:'start' });
+        });
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        const visible = entries
+          .filter(e => e.isIntersecting)
+          .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      }, { rootMargin: '-145px 0px -65% 0px', threshold: [0.1, 0.3, 0.6] });
+
+      sections.forEach(sec => observer.observe(sec));
+    });
+  </script>
+<nav aria-label="Dua navigation" class="dua-nav" id="duaNav">
+<a class="dua-link active" data-target="dua-1" href="#dua-1">1. Rahman</a><a class="dua-link" data-target="dua-2" href="#dua-2">2. Hayy</a><a class="dua-link" data-target="dua-3" href="#dua-3">3. Ahad</a><a class="dua-link" data-target="dua-4" href="#dua-4">4. Wahid</a><a class="dua-link" data-target="dua-5" href="#dua-5">5. Hadi</a><a class="dua-link" data-target="dua-6" href="#dua-6">6. Rashid</a><a class="dua-link" data-target="dua-7" href="#dua-7">7. Nur</a><a class="dua-link" data-target="dua-8" href="#dua-8">8. Mubin</a><a class="dua-link" data-target="dua-9" href="#dua-9">9. Wali</a><a class="dua-link" data-target="dua-10" href="#dua-10">10. Rafiq</a><a class="dua-link" data-target="dua-11" href="#dua-11">11. Nami</a><a class="dua-link" data-target="dua-12" href="#dua-12">12. Mawla</a><a class="dua-link" data-target="dua-13" href="#dua-13">13. Nasir</a><a class="dua-link" data-target="dua-14" href="#dua-14">14. Aziz</a><a class="dua-link" data-target="dua-15" href="#dua-15">15. Malik</a><a class="dua-link" data-target="dua-16" href="#dua-16">16. Malik Yawm ad-Din</a><a class="dua-link" data-target="dua-17" href="#dua-17">17. Malik al-Mulk</a><a class="dua-link" data-target="dua-18" href="#dua-18">18. Dhu’l-Jalal</a><a class="dua-link" data-target="dua-19" href="#dua-19">19. Khaliq</a><a class="dua-link" data-target="dua-20" href="#dua-20">20. Bari</a><a class="dua-link" data-target="dua-21" href="#dua-21">21. Musawwir</a><a class="dua-link" data-target="dua-22" href="#dua-22">22. Fatir</a><a class="dua-link" data-target="dua-23" href="#dua-23">23. Samad</a><a class="dua-link" data-target="dua-24" href="#dua-24">24. Haqq</a><a class="dua-link" data-target="dua-25" href="#dua-25">25. Wasi</a><a class="dua-link" data-target="dua-26" href="#dua-26">26. Ghafur</a><a class="dua-link" data-target="dua-27" href="#dua-27">27. Ghaffar</a><a class="dua-link" data-target="dua-28" href="#dua-28">28. Tawwab</a><a class="dua-link" data-target="dua-29" href="#dua-29">29. Wadud</a><a class="dua-link" data-target="dua-30" href="#dua-30">30. Muhsin</a><a class="dua-link" data-target="dua-31" href="#dua-31">31. Shakur</a><a class="dua-link" data-target="dua-32" href="#dua-32">32. Sami</a><a class="dua-link" data-target="dua-33" href="#dua-33">33. Qarib</a><a class="dua-link" data-target="dua-34" href="#dua-34">34. Mujib</a><a class="dua-link" data-target="dua-35" href="#dua-35">35. Mu’min</a><a class="dua-link" data-target="dua-36" href="#dua-36">36. Muhaymin</a><a class="dua-link" data-target="dua-37" href="#dua-37">37. Wakil</a><a class="dua-link" data-target="dua-38" href="#dua-38">38. Basir</a><a class="dua-link" data-target="dua-39" href="#dua-39">39. Shahid</a><a class="dua-link" data-target="dua-40" href="#dua-40">40. Raqib</a><a class="dua-link" data-target="dua-41" href="#dua-41">41. Sattar</a><a class="dua-link" data-target="dua-42" href="#dua-42">42. Subhan</a><a class="dua-link" data-target="dua-43" href="#dua-43">43. Quddus</a><a class="dua-link" data-target="dua-44" href="#dua-44">44. Salam</a><a class="dua-link" data-target="dua-45" href="#dua-45">45. Ghani</a><a class="dua-link" data-target="dua-46" href="#dua-46">46. Hamid</a><a class="dua-link" data-target="dua-47" href="#dua-47">47. Fattah</a><a class="dua-link" data-target="dua-48" href="#dua-48">48. Qabid / Basit</a><a class="dua-link" data-target="dua-49" href="#dua-49">49. Muqaddim / Mu’akhkhir</a><a class="dua-link" data-target="dua-50" href="#dua-50">50. ‘Alim</a><a class="dua-link" data-target="dua-51" href="#dua-51">51. Hakim</a><a class="dua-link" data-target="dua-52" href="#dua-52">52. Latif</a><a class="dua-link" data-target="dua-53" href="#dua-53">53. Khabir</a><a class="dua-link" data-target="dua-54" href="#dua-54">54. Qahhar</a><a class="dua-link" data-target="dua-55" href="#dua-55">55. Jabbar</a><a class="dua-link" data-target="dua-56" href="#dua-56">56. Mutakabbir</a><a class="dua-link" data-target="dua-57" href="#dua-57">57. Qadir</a><a class="dua-link" data-target="dua-58" href="#dua-58">58. Muqtadir</a><a class="dua-link" data-target="dua-59" href="#dua-59">59. Muqsit</a><a class="dua-link" data-target="dua-60" href="#dua-60">60. Hakam</a><a class="dua-link" data-target="dua-61" href="#dua-61">61. Hasib</a><a class="dua-link" data-target="dua-62" href="#dua-62">62. Razzaq</a><a class="dua-link" data-target="dua-63" href="#dua-63">63. Karim</a><a class="dua-link" data-target="dua-64" href="#dua-64">64. Akram</a><a class="dua-link" data-target="dua-65" href="#dua-65">65. Qawi</a><a class="dua-link" data-target="dua-66" href="#dua-66">66. Matin</a><a class="dua-link" data-target="dua-67" href="#dua-67">67. Adl</a><a class="dua-link" data-target="dua-68" href="#dua-68">68. Mu'izz</a><a class="dua-link" data-target="dua-69" href="#dua-69">69. Mudhill</a><a class="dua-link" data-target="dua-70" href="#dua-70">70. Khafid</a><a class="dua-link" data-target="dua-71" href="#dua-71">71. Rafi'</a><a class="dua-link" data-target="dua-72" href="#dua-72">72. Muqit</a><a class="dua-link" data-target="dua-73" href="#dua-73">73. Hafiz</a><a class="dua-link" data-target="dua-74" href="#dua-74">74. Jalil</a><a class="dua-link" data-target="dua-75" href="#dua-75">75. Majid</a><a class="dua-link" data-target="dua-76" href="#dua-76">76. Majeed</a><a class="dua-link" data-target="dua-77" href="#dua-77">77. Waliyy</a><a class="dua-link" data-target="dua-78" href="#dua-78">78. Muqsit</a><a class="dua-link" data-target="dua-79" href="#dua-79">79. Jami</a><a class="dua-link" data-target="dua-80" href="#dua-80">80. Mughni</a><a class="dua-link" data-target="dua-81" href="#dua-81">81. Mani</a><a class="dua-link" data-target="dua-82" href="#dua-82">82. Darr</a><a class="dua-link" data-target="dua-83" href="#dua-83">83. Nafi</a><a class="dua-link" data-target="dua-84" href="#dua-84">84. Badi</a><a class="dua-link" data-target="dua-85" href="#dua-85">85. Baqi</a><a class="dua-link" data-target="dua-86" href="#dua-86">86. Warith</a><a class="dua-link" data-target="dua-87" href="#dua-87">87. Rashid</a><a class="dua-link" data-target="dua-88" href="#dua-88">88. Sabur</a><a class="dua-link" data-target="dua-89" href="#dua-89">89. Qadir</a><a class="dua-link" data-target="dua-90" href="#dua-90">90. Muqtadir</a><a class="dua-link" data-target="dua-91" href="#dua-91">91. Qawi</a><a class="dua-link" data-target="dua-92" href="#dua-92">92. Matin</a><a class="dua-link" data-target="dua-93" href="#dua-93">93. Hakim</a><a class="dua-link" data-target="dua-94" href="#dua-94">94. Latif</a><a class="dua-link" data-target="dua-95" href="#dua-95">95. Khabir</a><a class="dua-link" data-target="dua-96" href="#dua-96">96. Sami</a><a class="dua-link" data-target="dua-97" href="#dua-97">97. Basir</a><a class="dua-link" data-target="dua-98" href="#dua-98">98. Qarib</a><a class="dua-link" data-target="dua-99" href="#dua-99">99. Allah</a>
+</nav>
+<script id="bottom-nav-js">
+document.addEventListener('DOMContentLoaded', function () {
+  const nav = document.getElementById('duaNav');
+  if (!nav) return;
+  const links = Array.from(nav.querySelectorAll('.dua-link[href^="#"]'));
+  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  function centerLink(link){
+    if (!link || !nav) return;
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    const delta = (linkRect.left + linkRect.width/2) - (navRect.left + navRect.width/2);
+    nav.scrollBy({ left: delta, behavior: 'smooth' });
+  }
+
+  function setActive(id){
+    let active = null;
+    links.forEach(a => {
+      const on = a.getAttribute('href') === '#' + id;
+      a.classList.toggle('active', on);
+      if (on) active = a;
+    });
+    if (active) centerLink(active);
+  }
+
+  links.forEach(a => {
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      const id = this.getAttribute('href').slice(1);
+      const el = document.getElementById(id);
+      if (!el) return;
+      setActive(id);
+      el.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible) setActive(visible.target.id);
+  }, { rootMargin: '-145px 0px -55% 0px', threshold: [0.12, 0.3, 0.6] });
+
+  sections.forEach(sec => observer.observe(sec));
+
+  // initialize
+  if (sections.length) setActive(sections[0].id);
+});
+</script>
+<script>
+window.addEventListener("load", function(){
+  if(window.location.hash){
+    history.replaceState(null,null,' ');
+  }
+  window.scrollTo({top:0,behavior:"instant"});
+});
+</script>
+</body>
+</html>
